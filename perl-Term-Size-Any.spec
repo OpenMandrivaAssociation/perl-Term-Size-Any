@@ -1,22 +1,20 @@
+%define upstream_name    Term-Size-Any
+%define upstream_version 0.001
 
-%define realname   Term-Size-Any
-%define version    0.001
-%define release    %mkrel 1
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 2
 
-Name:       perl-%{realname}
-Version:    %{version}
-Release:    %{release}
-License:    GPL or Artistic
+Summary:    Retrieve terminal size
+License:    GPL+ or Artistic
 Group:      Development/Perl
-Summary:    No summary found
-Source:     http://www.cpan.org/modules/by-module/Term/%{realname}-%{version}.tar.gz
-Url:        http://search.cpan.org/dist/%{realname}
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: perl-devel
+Url:        http://search.cpan.org/dist/%{upstream_name}
+Source0:    http://www.cpan.org/modules/by-module/Term/%{upstream_name}-%{upstream_version}.tar.gz
+
 BuildRequires: perl(Term::Size::Perl)
 
-
 BuildArch: noarch
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 This is a unified interface to retrieve terminal size. It loads one module
@@ -33,14 +31,14 @@ modules:
     Term::Size::Win32
 
 %prep
-%setup -q -n %{realname}-%{version} 
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
-make test
+%make test
 
 %install
 rm -rf %buildroot
@@ -54,5 +52,3 @@ rm -rf %buildroot
 %doc README Changes
 %{_mandir}/man3/*
 %perl_vendorlib/*
-
-
