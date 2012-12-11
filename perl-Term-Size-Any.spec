@@ -1,9 +1,9 @@
 %define upstream_name    Term-Size-Any
-%define upstream_version 0.001
+%define upstream_version 0.002
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 3
+Release:    1
 
 Summary:    Retrieve terminal size
 License:    GPL+ or Artistic
@@ -12,9 +12,9 @@ Url:        http://search.cpan.org/dist/%{upstream_name}
 Source0:    http://www.cpan.org/modules/by-module/Term/%{upstream_name}-%{upstream_version}.tar.gz
 
 BuildRequires: perl(Term::Size::Perl)
+BuildRequires: perl-devel
 
 BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 This is a unified interface to retrieve terminal size. It loads one module
@@ -41,14 +41,29 @@ modules:
 %make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc README Changes
 %{_mandir}/man3/*
 %perl_vendorlib/*
+
+
+%changelog
+* Mon Apr 18 2011 Funda Wang <fwang@mandriva.org> 0.1.0-3mdv2011.0
++ Revision: 655221
+- rebuild for updated spec-helper
+
+* Sat Feb 13 2010 Jérôme Quelin <jquelin@mandriva.org> 0.1.0-2mdv2011.0
++ Revision: 505275
+- rebuild using %%perl_convert_version
+
+* Fri May 15 2009 Jérôme Quelin <jquelin@mandriva.org> 0.001-1mdv2010.0
++ Revision: 376260
+- adding missing buildrequires:
+- import perl-Term-Size-Any
+
+
+* Fri May 15 2009 cpan2dist 0.001-1mdv
+- initial mdv release, generated with cpan2dist
+
